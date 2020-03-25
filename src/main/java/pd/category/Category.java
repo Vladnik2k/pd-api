@@ -1,4 +1,4 @@
-package com.PD.demo;
+package pd.category;
 
 import javax.persistence.*;
 
