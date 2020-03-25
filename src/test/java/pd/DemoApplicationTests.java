@@ -1,4 +1,4 @@
-package com.PD.demo;
+package pd;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
