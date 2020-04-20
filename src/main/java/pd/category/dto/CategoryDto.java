@@ -1,4 +1,6 @@
-package pd.category;
+package pd.category.dto;
+
+import pd.category.Category;
 
 public class CategoryDto {
     private int id;
