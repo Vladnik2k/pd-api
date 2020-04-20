@@ -1,9 +1,8 @@
 package pd.product;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import pd.product.dto.ProductDto;
 
 import java.util.List;
@@ -22,10 +21,20 @@ public class ProductController {
 
     @GetMapping
     @CrossOrigin(origins = WEB_URL)
-    public List<ProductDto> findAll() {
+    public List<ProductDto> getAllProducts() {
         return productService.getAll()
                 .stream()
                 .map(ProductDto::new)
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping("{productId}")
+    @CrossOrigin(origins = WEB_URL)
+    public ResponseEntity<ProductDto> getProductById(@PathVariable int productId) {
+        try {
+            return new ResponseEntity<>(new ProductDto(productService.getById(productId)), HttpStatus.FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }
