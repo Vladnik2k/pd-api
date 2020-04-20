@@ -1,10 +1,10 @@
-package pd.category;
+package pd.product;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pd.category.dto.CategoryDto;
+import pd.product.dto.ProductDto;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,21 +12,20 @@ import java.util.stream.Collectors;
 import static pd.Constants.WEB_URL;
 
 @RestController
-@RequestMapping("/api/category")
-public class CategoryController {
+@RequestMapping("/api/product")
+public class ProductController {
+    private final ProductService productService;
 
-    private final CategoryService categoryService;
-
-    public CategoryController(CategoryService categoryService) {
-        this.categoryService = categoryService;
+    public ProductController(ProductService productService) {
+        this.productService = productService;
     }
 
     @GetMapping
     @CrossOrigin(origins = WEB_URL)
-    public List<CategoryDto> getAllCategories() {
-        return categoryService.getAll()
+    public List<ProductDto> findAll() {
+        return productService.getAll()
                 .stream()
-                .map(CategoryDto::new)
+                .map(ProductDto::new)
                 .collect(Collectors.toList());
     }
 }
