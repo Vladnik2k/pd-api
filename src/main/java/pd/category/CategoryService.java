@@ -15,4 +15,8 @@ public class CategoryService {
     public List<Category> getAll() {
         return categoryRepository.findAll();
     }
+
+    public Category getById(int categoryId) throws Exception {
+        return categoryRepository.findById(categoryId).orElseThrow(Exception::new);
+    }
 }
