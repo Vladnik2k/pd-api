@@ -31,7 +31,7 @@ public class CategoryController {
 
     @GetMapping("{categoryId}")
     @CrossOrigin(origins = WEB_URL)
-    public ResponseEntity<CategoryDto> getAllCategories(@PathVariable int categoryId) {
+    public ResponseEntity<CategoryDto> getCategoryById(@PathVariable int categoryId) {
         try {
             return new ResponseEntity<>(new CategoryDto(categoryService.getById(categoryId)), HttpStatus.FOUND);
         } catch (Exception e) {

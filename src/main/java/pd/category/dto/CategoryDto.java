@@ -5,12 +5,13 @@ import pd.category.Category;
 public class CategoryDto {
     private int id;
     private String name;
-    private String description;
+
+    public CategoryDto() {
+    }
 
     public CategoryDto(Category category) {
         this.id = category.getId();
         this.name = category.getName();
-        this.description = category.getDescription();
     }
 
     public int getId() {
@@ -29,11 +30,4 @@ public class CategoryDto {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }
