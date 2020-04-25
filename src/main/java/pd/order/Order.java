@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.time.Instant;
 
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 public class Order {
 
     @Id
@@ -14,23 +14,23 @@ public class Order {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "is_need_delivery")
-    private boolean isNeedDelivery;
-
     @Column(name = "status")
     private int status;
 
     @Column(name = "created_at")
     private Instant createdAt;
 
-    @Column(name = "schedule")
-    private Instant schedule;
-
     @Column(name = "customer_name")
     private String customerName;
 
     @Column(name = "customer_surname")
     private String customerSurname;
+
+    @Column(name = "delivery_address")
+    private String deliveryAddress;
+
+    @Column(name = "price")
+    private Double price;
 
     public Order() {}
 
@@ -50,14 +50,6 @@ public class Order {
         this.email = email;
     }
 
-    public boolean isNeedDelivery() {
-        return isNeedDelivery;
-    }
-
-    public void setNeedDelivery(boolean needDelivery) {
-        isNeedDelivery = needDelivery;
-    }
-
     public int getStatus() {
         return status;
     }
@@ -74,14 +66,6 @@ public class Order {
         this.createdAt = createdAt;
     }
 
-    public Instant getSchedule() {
-        return schedule;
-    }
-
-    public void setSchedule(Instant schedule) {
-        this.schedule = schedule;
-    }
-
     public String getCustomerName() {
         return customerName;
     }
@@ -96,5 +80,21 @@ public class Order {
 
     public void setCustomerSurname(String customerSurname) {
         this.customerSurname = customerSurname;
+    }
+
+    public String getDeliveryAddress() {
+        return deliveryAddress;
+    }
+
+    public void setDeliveryAddress(String deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 }

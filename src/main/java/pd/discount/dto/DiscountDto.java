@@ -10,7 +10,7 @@ public class DiscountDto {
     private int id;
     private ProductDto product;
     private String description;
-    private BigDecimal percent;
+    private Double percent;
     private Instant activateFrom;
     private Instant activateBy;
 
@@ -47,11 +47,11 @@ public class DiscountDto {
         this.description = description;
     }
 
-    public BigDecimal getPercent() {
+    public Double getPercent() {
         return percent;
     }
 
-    public void setPercent(BigDecimal percent) {
+    public void setPercent(Double percent) {
         this.percent = percent;
     }
 

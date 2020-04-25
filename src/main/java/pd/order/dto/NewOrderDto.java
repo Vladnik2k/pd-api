@@ -1,21 +1,29 @@
 package pd.order.dto;
 
-import java.time.Instant;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 public class NewOrderDto {
+
+    @NotNull
+    @NotEmpty
+    @Email
     private String email;
-    private boolean isNeedDelivery;
-    private Instant schedule;
+
+    @NotNull
+    @NotEmpty
     private String customerName;
+
+    @NotNull
+    @NotEmpty
     private String customerSurname;
 
-    public NewOrderDto(String email, boolean isNeedDelivery, Instant schedule, String customerName, String customerSurname) {
-        this.email = email;
-        this.isNeedDelivery = isNeedDelivery;
-        this.schedule = schedule;
-        this.customerName = customerName;
-        this.customerSurname = customerSurname;
-    }
+    @NotNull
+    @NotEmpty
+    private String deliveryAddress;
+
+    private String products;
 
     public NewOrderDto() {
     }
@@ -26,22 +34,6 @@ public class NewOrderDto {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public boolean isNeedDelivery() {
-        return isNeedDelivery;
-    }
-
-    public void setNeedDelivery(boolean needDelivery) {
-        isNeedDelivery = needDelivery;
-    }
-
-    public Instant getSchedule() {
-        return schedule;
-    }
-
-    public void setSchedule(Instant schedule) {
-        this.schedule = schedule;
     }
 
     public String getCustomerName() {
@@ -58,5 +50,21 @@ public class NewOrderDto {
 
     public void setCustomerSurname(String customerSurname) {
         this.customerSurname = customerSurname;
+    }
+
+    public String getDeliveryAddress() {
+        return deliveryAddress;
+    }
+
+    public void setDeliveryAddress(String deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
+    }
+
+    public String getProducts() {
+        return products;
+    }
+
+    public void setProducts(String products) {
+        this.products = products;
     }
 }

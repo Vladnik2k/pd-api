@@ -22,7 +22,7 @@ public class Discount {
     private String description;
 
     @Column(name = "percent")
-    private BigDecimal percent;
+    private Double percent;
 
     @Column(name = "activate_from")
     private Instant activateFrom;
@@ -31,14 +31,6 @@ public class Discount {
     private Instant activateBy;
 
     public Discount() {}
-
-    public Discount(Product product, String description, BigDecimal percent, Instant activateFrom, Instant activateBy) {
-        this.product = product;
-        this.description = description;
-        this.percent = percent;
-        this.activateFrom = activateFrom;
-        this.activateBy = activateBy;
-    }
 
     public int getId() {
         return id;
@@ -64,11 +56,11 @@ public class Discount {
         this.description = description;
     }
 
-    public BigDecimal getPercent() {
+    public Double getPercent() {
         return percent;
     }
 
-    public void setPercent(BigDecimal percent) {
+    public void setPercent(Double percent) {
         this.percent = percent;
     }
 

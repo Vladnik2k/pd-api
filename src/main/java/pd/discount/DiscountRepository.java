@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,5 +19,8 @@ public interface DiscountRepository extends JpaRepository<Discount, Integer> {
 
     @Query(value = "SELECT MAX(percent) FROM discount", nativeQuery = true)
     double findMaxByPercent();
+
+    @Query(value = "SELECT * FROM discount WHERE product_id=?1 AND activate_from<?2 AND activate_by>?2", nativeQuery = true)
+    Optional<Discount> findByProductIdAndDate(Integer productId, Instant date);
 
 }

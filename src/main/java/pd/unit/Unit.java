@@ -15,12 +15,6 @@ public class Unit {
     @Column(name = "abbreviation")
     private String abbreviation;
 
-    public Unit(int id, String name, String abbreviation) {
-        this.id = id;
-        this.name = name;
-        this.abbreviation = abbreviation;
-    }
-
     public Unit() {}
 
     public int getId() {

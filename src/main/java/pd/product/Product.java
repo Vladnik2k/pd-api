@@ -19,7 +19,7 @@ public class Product {
     private String description;
 
     @Column(name = "price")
-    private int price;
+    private Double price;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
@@ -29,14 +29,6 @@ public class Product {
     private String imageUrl;
 
     public Product() {}
-
-    public Product(String name, String description, int price, Category category, String imageUrl) {
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.category = category;
-        this.imageUrl = imageUrl;
-    }
 
     public int getId() {
         return id;
@@ -62,11 +54,11 @@ public class Product {
         this.description = description;
     }
 
-    public int getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -85,4 +77,5 @@ public class Product {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
 }
