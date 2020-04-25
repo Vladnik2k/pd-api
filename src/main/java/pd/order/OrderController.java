@@ -4,6 +4,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pd.order.dto.NewOrderDto;
+import pd.order.dto.OrderDto;
+
+import javax.validation.Valid;
 
 import static pd.Constants.WEB_URL;
 
@@ -19,7 +22,7 @@ public class OrderController {
 
     @PostMapping
     @CrossOrigin(origins = WEB_URL)
-    public ResponseEntity<?> createOrder(@RequestBody NewOrderDto newOrderDto) {
+    public ResponseEntity<Void> createOrder(@RequestBody @Valid NewOrderDto newOrderDto) {
         try {
             orderService.createOrder(newOrderDto);
             return new ResponseEntity<>(HttpStatus.CREATED);

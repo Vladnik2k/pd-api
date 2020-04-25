@@ -21,10 +21,19 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @PostMapping
+    @PostMapping("filter")
     @CrossOrigin(origins = WEB_URL)
     public List<ProductDto> getAllProductsByFilter(@RequestBody ProductFilterDto filter) {
         return productService.getAllByFilter(filter)
+                .stream()
+                .map(ProductDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @PostMapping("ids")
+    @CrossOrigin(origins = WEB_URL)
+    public List<ProductDto> getProductsByIds(@RequestBody List<Integer> productIds) {
+        return productService.getAllByIds(productIds)
                 .stream()
                 .map(ProductDto::new)
                 .collect(Collectors.toList());

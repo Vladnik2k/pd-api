@@ -19,11 +19,6 @@ public class Ingredient {
     @JoinColumn(name = "unit_id")
     private Unit unit;
 
-    public Ingredient(String name, Unit unit) {
-        this.name = name;
-        this.unit = unit;
-    }
-
     public Ingredient() {}
 
     public int getId() {

@@ -10,10 +10,10 @@ import java.util.Optional;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Integer> {
 
-    @Query(value = "SELECT * FROM order", nativeQuery = true)
+    @Query(value = "SELECT * FROM orders", nativeQuery = true)
     List<Order> findAll();
 
-    @Query(value = "SELECT * FROM order where order.id = ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM orders where orders.id = ?1", nativeQuery = true)
     Optional<Order> findById(int id);
 
 }
