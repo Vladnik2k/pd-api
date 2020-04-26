@@ -1,5 +1,7 @@
 package pd.order;
 
+import pd.order_status.OrderStatus;
+
 import javax.persistence.*;
 import java.time.Instant;
 
@@ -14,8 +16,9 @@ public class Order {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "status")
-    private int status;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "status_id")
+    private OrderStatus status;
 
     @Column(name = "created_at")
     private Instant createdAt;
@@ -50,11 +53,11 @@ public class Order {
         this.email = email;
     }
 
-    public int getStatus() {
+    public OrderStatus getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(OrderStatus status) {
         this.status = status;
     }
 

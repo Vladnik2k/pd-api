@@ -22,10 +22,19 @@ public class OrderController {
 
     @PostMapping
     @CrossOrigin(origins = WEB_URL)
-    public ResponseEntity<Void> createOrder(@RequestBody @Valid NewOrderDto newOrderDto) {
+    public ResponseEntity<Integer> createOrder(@RequestBody @Valid NewOrderDto newOrderDto) {
         try {
-            orderService.createOrder(newOrderDto);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            return new ResponseEntity<>(orderService.createOrder(newOrderDto), HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("{orderId}")
+    @CrossOrigin(origins = WEB_URL)
+    public ResponseEntity<OrderDto> getOrderById(@PathVariable Integer orderId) {
+        try {
+            return new ResponseEntity<>(orderService.getOrderById(orderId), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
