@@ -17,13 +17,18 @@ public class OrderProductMappingService {
     }
 
     public void save(Order order, Product product, Integer quantity) {
-        orderProductMappingRepository.save(new OrderProductMapping(order, product, quantity));
+        OrderProductMapping orderProductMapping = new OrderProductMapping();
+        orderProductMapping.setOrder(order);
+        orderProductMapping.setProduct(product);
+        orderProductMapping.setQuantity(quantity);
+
+        orderProductMappingRepository.save(orderProductMapping);
     }
 
-    public Map<Integer, Integer> getProductsByOrderId(Integer orderId) {
+    public Map<Product, Integer> getProductsByOrderId(Integer orderId) {
         List<OrderProductMapping> orderProductMappings = orderProductMappingRepository.findAllByOrderId(orderId);
-        Map<Integer, Integer> products = new HashMap<>();
-        orderProductMappings.forEach(oPM -> products.put(oPM.getProduct().getId(), oPM.getQuantity()));
+        Map<Product, Integer> products = new HashMap<>();
+        orderProductMappings.forEach(oPM -> products.put(oPM.getProduct(), oPM.getQuantity()));
 
         return products;
     }

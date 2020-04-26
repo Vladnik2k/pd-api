@@ -24,10 +24,7 @@ public class OrderProductMapping {
     @Column(name = "quantity")
     private int quantity;
 
-    public OrderProductMapping(Order order, Product product, int quantity) {
-        this.order = order;
-        this.product = product;
-        this.quantity = quantity;
+    public OrderProductMapping() {
     }
 
     public int getId() {

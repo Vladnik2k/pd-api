@@ -3,7 +3,6 @@ package pd.discount;
 import pd.product.Product;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.time.Instant;
 
 @Entity
