@@ -23,7 +23,7 @@ public class DiscountService {
     }
 
     public Optional<Discount> findByProductId(int productId) {
-        return discountRepository.findByProductIdAndDate(productId, Instant.now());
+        return discountRepository.findByProductIdNow(productId);
     }
 
     public double getMaxDiscountPercent() {

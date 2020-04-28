@@ -6,9 +6,26 @@ public class ProductDto {
     private int id;
     private String name;
     private String description;
-    private double price;
-    private int categoryId;
     private String imageUrl;
+    private double price;
+    private double discountPercent;
+    private double discountPrice;
+
+    public ProductDto(int id,
+                      String name,
+                      String description,
+                      String imageUrl,
+                      double price,
+                      double discountPercent,
+                      double discountPrice) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.imageUrl = imageUrl;
+        this.discountPercent = discountPercent;
+        this.discountPrice = discountPrice;
+    }
 
     public ProductDto(Product product) {
         this.id = product.getId();
@@ -16,7 +33,6 @@ public class ProductDto {
         this.description = product.getDescription();
         this.price = product.getPrice();
         this.imageUrl = product.getImageUrl();
-        this.categoryId = product.getCategory().getId();
     }
 
     public int getId() {
@@ -51,19 +67,27 @@ public class ProductDto {
         this.price = price;
     }
 
-    public int getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
-    }
-
     public String getImageUrl() {
         return imageUrl;
     }
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public double getDiscountPercent() {
+        return discountPercent;
+    }
+
+    public void setDiscountPercent(double discountPercent) {
+        this.discountPercent = discountPercent;
+    }
+
+    public double getDiscountPrice() {
+        return discountPrice;
+    }
+
+    public void setDiscountPrice(double discountPrice) {
+        this.discountPrice = discountPrice;
     }
 }

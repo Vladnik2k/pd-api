@@ -34,7 +34,7 @@ public class OrderController {
     @CrossOrigin(origins = WEB_URL)
     public ResponseEntity<OrderDto> getOrderById(@PathVariable Integer orderId) {
         try {
-            return new ResponseEntity<>(orderService.getOrderById(orderId), HttpStatus.CREATED);
+            return new ResponseEntity<>(orderService.getOrderById(orderId), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

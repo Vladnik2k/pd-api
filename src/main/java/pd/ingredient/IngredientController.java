@@ -19,22 +19,12 @@ public class IngredientController {
         this.ingredientService = ingredientService;
     }
 
-    @GetMapping
+    @GetMapping("{productId}")
     @CrossOrigin(origins = WEB_URL)
-    public List<IngredientDto> getAllIngredients() {
-        return ingredientService.getAll()
+    public List<IngredientDto> getIngredientById(@PathVariable int productId) {
+        return ingredientService.getAllByProductId(productId)
                 .stream()
                 .map(IngredientDto::new)
                 .collect(Collectors.toList());
-    }
-
-    @GetMapping("{ingredientId}")
-    @CrossOrigin(origins = WEB_URL)
-    public ResponseEntity<IngredientDto> getIngredientById(@PathVariable int ingredientId) {
-        try {
-            return new ResponseEntity<>(new IngredientDto(ingredientService.getById(ingredientId)), HttpStatus.FOUND);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
     }
 }

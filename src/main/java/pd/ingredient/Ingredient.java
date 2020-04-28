@@ -1,7 +1,5 @@
 package pd.ingredient;
 
-import pd.unit.Unit;
-
 import javax.persistence.*;
 
 @Entity
@@ -14,10 +12,6 @@ public class Ingredient {
 
     @Column(name = "name")
     private String name;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "unit_id")
-    private Unit unit;
 
     public Ingredient() {}
 
@@ -37,11 +31,4 @@ public class Ingredient {
         this.name = name;
     }
 
-    public Unit getUnit() {
-        return unit;
-    }
-
-    public void setUnit(Unit unit) {
-        this.unit = unit;
-    }
 }

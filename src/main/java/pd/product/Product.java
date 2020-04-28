@@ -1,11 +1,44 @@
 package pd.product;
 
 import pd.category.Category;
+import pd.product.dto.ProductDto;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "product")
+@SqlResultSetMapping(
+        name="ProductJoinDiscount",
+        classes = {
+                @ConstructorResult(
+                        targetClass = ProductDto.class,
+                        columns = {
+                                @ColumnResult(name = "id"),
+                                @ColumnResult(name = "name"),
+                                @ColumnResult(name = "description"),
+                                @ColumnResult(name = "categoryId"),
+                                @ColumnResult(name = "imageUrl"),
+                                @ColumnResult(name = "isDiscount"),
+                                @ColumnResult(name = "price"),
+                                @ColumnResult(name = "discountPercent"),
+                                @ColumnResult(name = "discountPrice")
+                        }
+                )
+        })
+@NamedNativeQuery(name = "findAllByFilter", query =
+        "SELECT product.id AS id, " +
+                "       product.name AS name, " +
+                "       product.description AS description, " +
+                "       product.category_id AS categoryId, " +
+                "       product.image_url AS imageUrl,\n" +
+                "       product.price AS price,\n" +
+                "       IF(discount.percent IS NULL, NULL, discount.percent) AS discountPercent\n" +
+                "       IF(discount.percent IS NULL, price, price - price / 100 * discount.percent) AS discountPrice,\n" +
+                "    FROM product\n" +
+                "        LEFT JOIN discount ON discount.product_id = product.id\n" +
+                "                                  AND discount.activate_by >= CURRENT_TIMESTAMP\n" +
+                "                                  AND discount.activate_from <= CURRENT_TIMESTAMP ",
+        resultSetMapping = "ProductJoinDiscount")
 public class Product {
 
     @Id
