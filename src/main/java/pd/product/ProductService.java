@@ -5,7 +5,6 @@ import pd.category.Category;
 import pd.category.CategoryService;
 import pd.discount.Discount;
 import pd.discount.DiscountService;
-import pd.product.dto.ProductDto;
 import pd.product.dto.ProductFilterDto;
 
 import java.math.BigDecimal;

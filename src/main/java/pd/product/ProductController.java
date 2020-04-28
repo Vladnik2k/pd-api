@@ -43,7 +43,7 @@ public class ProductController {
     @CrossOrigin(origins = WEB_URL)
     public ResponseEntity<ProductDto> getProductById(@PathVariable int productId) {
         try {
-            return new ResponseEntity<>(new ProductDto(productService.getById(productId)), HttpStatus.FOUND);
+            return new ResponseEntity<>(new ProductDto(productService.getById(productId)), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

@@ -13,11 +13,7 @@ public class IngredientService {
         this.ingredientRepository = ingredientRepository;
     }
 
-    public List<Ingredient> getAll() {
-        return ingredientRepository.findAll();
-    }
-
-    public Ingredient getById(int ingredientId) throws Exception {
-        return ingredientRepository.findById(ingredientId).orElseThrow(Exception::new);
+    public List<Ingredient> getAllByProductId(int productId) {
+        return ingredientRepository.findAllByProductId(productId);
     }
 }
