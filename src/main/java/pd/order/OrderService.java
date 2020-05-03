@@ -3,54 +3,54 @@ package pd.order;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import pd.order.dto.NewOrderDto;
 import pd.order.dto.OrderDto;
 import pd.order_product_mapping.OrderProductMappingService;
-import pd.order_status.OrderStatusService;
 import pd.product.Product;
 import pd.product.ProductService;
 
-import java.time.Instant;
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
-
-import static pd.Constants.ORDER_STATUS_PREPARING;
 
 @Service
 public class OrderService {
     private final OrderRepository orderRepository;
     private final ProductService productService;
     private final OrderProductMappingService orderProductMappingService;
-    private final OrderStatusService orderStatusService;
+    private NamedParameterJdbcTemplate template;
 
     public OrderService(OrderRepository orderRepository,
                         ProductService productService,
                         OrderProductMappingService orderProductMappingService,
-                        OrderStatusService orderStatusService) {
+                        NamedParameterJdbcTemplate template) {
         this.orderRepository = orderRepository;
         this.productService = productService;
         this.orderProductMappingService = orderProductMappingService;
-        this.orderStatusService = orderStatusService;
+        this.template = template;
     }
 
-    @Transactional
     public Integer createOrder(NewOrderDto newOrderDto) throws Exception {
         Map<Product, Integer> products = formProductQuantityMap(newOrderDto.getProducts());
         Order order = dtoToOrder(newOrderDto);
         order.setPrice(getOrderPrice(products));
 
-        orderRepository.save(order);
-        products.forEach((product, quantity) -> orderProductMappingService.save(order, product, quantity));
+        Integer orderId = saveOrder(order);
+        products.forEach((product, quantity) -> orderProductMappingService.save(orderId, product.getId(), quantity));
 
-        return order.getId();
+        return orderId;
     }
 
     public OrderDto getOrderById(Integer orderId) throws Exception {
-        Order order = orderRepository.findById(orderId).orElseThrow(Exception::new);
+        Order order = orderRepository.findOptionalById(orderId).orElseThrow(Exception::new);
         Map<Product, Integer> products = orderProductMappingService.getProductsByOrderId(orderId);
 
         return new OrderDto(order, products);
@@ -81,6 +81,22 @@ public class OrderService {
         return productQuantityMap;
     }
 
+    private Integer saveOrder(Order order) {
+        String query = "INSERT INTO orders (email, status_id, created_at, customer_name, customer_surname, delivery_address, price) values" +
+                "(:email, 1, CURRENT_TIMESTAMP, :customerName, :customerSurname, :deliveryAddress, :price)";
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        SqlParameterSource param = new MapSqlParameterSource()
+                .addValue("email", order.getEmail())
+                .addValue("customerName", order.getCustomerName())
+                .addValue("deliveryAddress", order.getDeliveryAddress())
+                .addValue("price", order.getPrice())
+                .addValue("customerSurname", order.getCustomerSurname());
+
+        template.update(query, param, keyHolder);
+
+        return ((BigInteger)keyHolder.getKeyList().get(0).get("GENERATED_KEY")).intValue();
+    }
+
     private Map<Integer, Integer> stringToMap(String products) throws JsonProcessingException {
         return new ObjectMapper().readValue(products, new TypeReference<HashMap<Integer, Integer>>() {});
     }
@@ -93,8 +109,6 @@ public class OrderService {
 
     private Order dtoToOrder(NewOrderDto newOrderDto) {
         Order order = new Order();
-        order.setStatus(orderStatusService.findById(ORDER_STATUS_PREPARING));
-        order.setCreatedAt(Instant.now());
         order.setCustomerName(newOrderDto.getCustomerName());
         order.setCustomerSurname(newOrderDto.getCustomerSurname());
         order.setEmail(newOrderDto.getEmail());

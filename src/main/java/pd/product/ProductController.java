@@ -23,19 +23,13 @@ public class ProductController {
     @PostMapping("filter")
     @CrossOrigin(origins = WEB_URL)
     public List<ProductDto> getAllProductsByFilter(@RequestBody ProductFilterDto filter) {
-        return productService.getAllByFilter(filter)
-                .stream()
-                .map(ProductDto::new)
-                .collect(Collectors.toList());
+        return productService.getAllByFilter(filter);
     }
 
     @GetMapping("/discount")
     @CrossOrigin(origins = WEB_URL)
     public List<ProductDto> getAllWithDiscount() {
-        return productService.getAllWithDiscount()
-                .stream()
-                .map(ProductDto::new)
-                .collect(Collectors.toList());
+        return productService.getAllWithDiscount();
     }
 
     @GetMapping("/discount/count")
@@ -47,10 +41,7 @@ public class ProductController {
     @PostMapping("ids")
     @CrossOrigin(origins = WEB_URL)
     public List<ProductDto> getProductsByIds(@RequestBody List<Integer> productIds) {
-        return productService.getAllByIds(productIds)
-                .stream()
-                .map(ProductDto::new)
-                .collect(Collectors.toList());
+        return productService.getAllByIds(productIds);
     }
 
     @GetMapping("{productId}")
