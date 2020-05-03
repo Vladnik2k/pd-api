@@ -56,6 +56,14 @@ public class OrderService {
         return new OrderDto(order, products);
     }
 
+    public Integer getCountOfCustomers() {
+        return orderRepository.getCountOfProducts();
+    }
+
+    public Integer getNumberOfActiveOrders() {
+        return orderRepository.getNumberOfActiveOrders();
+    }
+
     private Map<Product, Integer> formProductQuantityMap(String products) throws Exception {
         Map<Integer, Integer> map = stringToMap(products);
         map = simplifyProducts(map);
@@ -65,7 +73,7 @@ public class OrderService {
         }
 
         Map<Product, Integer> productQuantityMap = new HashMap<>();
-        map.forEach((k, v) -> productQuantityMap.put(productService.getByIdOptional(k).orElse(null), v));
+        map.forEach((k, v) -> productQuantityMap.put(productService.getById(k).orElse(null), v));
         if (productQuantityMap.containsKey(null)) {
             throw new Exception();
         }
@@ -97,7 +105,7 @@ public class OrderService {
 
     private double getOrderPrice(Map<Product, Integer> products) {
         AtomicReference<Double> price = new AtomicReference<>(0D);
-        products.forEach((product, quantity) -> price.updateAndGet(v -> v + quantity * productService.getPriceForProduct(product)));
+        products.forEach((product, quantity) -> price.updateAndGet(v -> v + quantity * product.getPrice()));
 
         return price.get();
     }
