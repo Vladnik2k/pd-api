@@ -10,18 +10,7 @@ public class ProductDto {
     private double price;
     private double discountPercent;
 
-    public ProductDto(int id,
-                      String name,
-                      String description,
-                      String imageUrl,
-                      double price,
-                      double discountPercent) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.imageUrl = imageUrl;
-        this.discountPercent = discountPercent;
+    public ProductDto() {
     }
 
     public ProductDto(Product product) {

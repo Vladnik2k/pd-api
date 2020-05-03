@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     @Query(value = "SELECT * FROM orders where orders.id = ?1", nativeQuery = true)
-    Optional<Order> findById(int id);
+    Optional<Order> findOptionalById(int id);
 
     @Query(value = "SELECT COUNT(DISTINCT email) FROM orders", nativeQuery = true)
     Integer getCountOfProducts();

@@ -37,6 +37,22 @@ public class Order {
 
     public Order() {}
 
+    public Order(String email,
+                 OrderStatus status,
+                 Instant createdAt,
+                 String customerName,
+                 String customerSurname,
+                 String deliveryAddress,
+                 Double price) {
+        this.email = email;
+        this.status = status;
+        this.createdAt = createdAt;
+        this.customerName = customerName;
+        this.customerSurname = customerSurname;
+        this.deliveryAddress = deliveryAddress;
+        this.price = price;
+    }
+
     public int getId() {
         return id;
     }
