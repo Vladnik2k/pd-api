@@ -39,4 +39,16 @@ public class OrderController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping("customers-count")
+    @CrossOrigin(origins = WEB_URL)
+    public Integer getCountOfCustomers() {
+        return orderService.getCountOfCustomers();
+    }
+
+    @GetMapping("active-orders")
+    @CrossOrigin(origins = WEB_URL)
+    public Integer getNumberOfActiveOrders() {
+        return orderService.getNumberOfActiveOrders();
+    }
 }

@@ -1,8 +1,9 @@
 package pd.category;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import pd.category.dto.CategoryDto;
 
 import java.util.List;
@@ -27,15 +28,5 @@ public class CategoryController {
                 .stream()
                 .map(CategoryDto::new)
                 .collect(Collectors.toList());
-    }
-
-    @GetMapping("{categoryId}")
-    @CrossOrigin(origins = WEB_URL)
-    public ResponseEntity<CategoryDto> getCategoryById(@PathVariable int categoryId) {
-        try {
-            return new ResponseEntity<>(new CategoryDto(categoryService.getById(categoryId)), HttpStatus.FOUND);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
     }
 }

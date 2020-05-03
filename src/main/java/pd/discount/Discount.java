@@ -17,9 +17,6 @@ public class Discount {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @Column(name = "description")
-    private String description;
-
     @Column(name = "percent")
     private Double percent;
 
@@ -45,14 +42,6 @@ public class Discount {
 
     public void setProduct(Product product) {
         this.product = product;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public Double getPercent() {

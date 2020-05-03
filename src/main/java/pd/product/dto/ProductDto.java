@@ -9,22 +9,19 @@ public class ProductDto {
     private String imageUrl;
     private double price;
     private double discountPercent;
-    private double discountPrice;
 
     public ProductDto(int id,
                       String name,
                       String description,
                       String imageUrl,
                       double price,
-                      double discountPercent,
-                      double discountPrice) {
+                      double discountPercent) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.imageUrl = imageUrl;
         this.discountPercent = discountPercent;
-        this.discountPrice = discountPrice;
     }
 
     public ProductDto(Product product) {
@@ -83,11 +80,4 @@ public class ProductDto {
         this.discountPercent = discountPercent;
     }
 
-    public double getDiscountPrice() {
-        return discountPrice;
-    }
-
-    public void setDiscountPrice(double discountPrice) {
-        this.discountPrice = discountPrice;
-    }
 }
