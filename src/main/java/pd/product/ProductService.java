@@ -1,5 +1,6 @@
 package pd.product;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 import pd.category.Category;
@@ -27,6 +28,11 @@ public class ProductService {
         this.template = template;
     }
 
+    /**
+     * Method for taking list of ProductDto by using filter from frontend
+     * @param filter: {@link ProductFilterDto} contains information about filtering
+     * @return {@link List<ProductDto>} found list of products ready for sending to frontend
+     */
     public List<ProductDto> getAllByFilter(ProductFilterDto filter) {
         List<Integer> categoryIds = filter.getCategoryIds();
         if (categoryIds.isEmpty()) {
@@ -40,30 +46,60 @@ public class ProductService {
                 new ProductDtoMapping());
     }
 
+    /**
+     * Get all products that have discount in current moment
+     * @return {@link List<ProductDto>} list of found Products
+     */
     public List<ProductDto> getAllWithDiscount() {
         return template.query(ProductFormQueryLine.getAllWithDiscount(), new ProductDtoMapping());
     }
 
+    /**
+     * Get the number of all product that have discount in current moment
+     * @return {@link Integer} shows the number of found products
+     */
     public Integer getCountAllWithDiscount() {
         return productRepository.findCountAllWithDiscount();
     }
 
+    /**
+     * Get one product by id
+     * @param productId {@link int} shows id of product need to be found
+     * @return {@link Optional<ProductDto>} found Product information
+     */
     public Optional<Product> getById(int productId) {
         return productRepository.findById(productId);
     }
 
+    /**
+     * Get max price of all products using discount
+     * @return {@link Double} max price of all products
+     */
     public Double getMaxPrice() {
         return productRepository.getMaxPrice();
     }
 
+    /**
+     * Get min price of all products using discount
+     * @return {@link Double} min price of all products
+     */
     public Double getMinPrice() {
         return productRepository.getMinPrice();
     }
 
+    /**
+     * Get count of all products stored in db
+     * @return {@link Integer} number of all products in db
+     */
     public Integer getCountOfProducts() {
         return productRepository.getCount();
     }
 
+    /**
+     * Get products by ids
+     * @param productIds {@link List<Integer>} contains all ids and products with them need to be found
+     * @return {@link List<ProductDto>} list of found Products
+     */
     public List<ProductDto> getAllByIds(List<Integer> productIds) {
         if (productIds.isEmpty()) {
             return new ArrayList<>();

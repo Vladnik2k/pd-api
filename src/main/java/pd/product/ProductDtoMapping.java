@@ -8,6 +8,13 @@ import java.sql.SQLException;
 
 public class ProductDtoMapping implements RowMapper<ProductDto> {
 
+    /**
+     * Converting got product from database to frontend-view object
+     * @param resultSet {@link ResultSet} got information from database
+     * @param i {@link int} index of element
+     * @return {@link ProductDto} frontend-view object
+     * @throws SQLException {@link SQLException} if something went wrong
+     */
     @Override
     public ProductDto mapRow(ResultSet resultSet, int i) throws SQLException {
         ProductDto productDto = new ProductDto();
